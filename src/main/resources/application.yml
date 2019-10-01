@@ -1,0 +1,13 @@
+spring:
+  banner:
+    image:
+      location: classpath:banner.txt
+camel:
+  springboot:
+    main-run-controller: true
+    jmx-enabled: false
+
+route:
+  basePath: data
+  from: file:${route.basePath}/in?autoCreate=true&delay=1000
+  to: file:${route.basePath}/out?autoCreate=true

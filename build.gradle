@@ -18,8 +18,16 @@ repositories {
 	mavenCentral()
 }
 
+def camelVersion = "2.24.0"
+
 dependencies {
-	implementation 'org.apache.camel:camel-spring-boot-starter:2.24.0'
+    compile "org.apache.camel:camel-core:$camelVersion"
+    compile "org.apache.camel:camel-bindy:$camelVersion"
+    compile "org.apache.camel:camel-spring:$camelVersion"
+    compile "org.apache.camel:camel-spring-boot:$camelVersion"
+    compile "org.apache.camel:camel-file-starter:$camelVersion"
+    compile "org.apache.camel:camel-spring-boot-starter:$camelVersion"
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
