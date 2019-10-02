@@ -32,7 +32,6 @@ import com.anderson.salesreport.business.registro.importacao.Cliente;
 import com.anderson.salesreport.business.registro.importacao.RegistroImportacao;
 import com.anderson.salesreport.business.registro.importacao.Venda;
 import com.anderson.salesreport.business.registro.importacao.Vendedor;
-import com.anderson.salesreport.business.service.bo.ResumoImportacao;
 
 @Component
 public class ImportacaoRoute extends RouteBuilder{
@@ -63,29 +62,28 @@ public class ImportacaoRoute extends RouteBuilder{
 			.split(body().regexTokenize(WRAP_LINE_REGEX), new GroupedBodyAggregationStrategy<RegistroImportacao>(RegistroImportacao.class))
 				.to(DIRECT_PARSE_CONTEUDO_ARQUIVO)
 			.end()
-			.log(LoggingLevel.INFO, LOGGER, "------------------->>>>>> Arquivo lido: " + file_name_camel)
-			
+			.log(LoggingLevel.INFO, LOGGER, buildStrLog("Arquivo", file_name_camel, "lido com sucesso!"))
 			.to(DIRECT_CRIA_RESUMO_IMPORTACAO)
 			.marshal().json(JsonLibrary.Jackson)
-			.log(LoggingLevel.INFO, LOGGER, "------------------->>>>>> Relatorio gerado: " + body().toString())
+			.log(LoggingLevel.INFO, LOGGER, buildStrLog("Relatorio ", file_name_camel, "gerado com sucesso",body().toString()))
 			.to("{{route.to}}");
 		
 		
 		from(DIRECT_PARSE_CONTEUDO_ARQUIVO).routeId(DIRECT_PARSE_CONTEUDO_ARQUIVO_ID)
         .choice()
 	    	.when(isVendedor)
-	    		.log(LoggingLevel.INFO, LOGGER, "Vendedor encontrado no arquivo ${headers." + Exchange.FILE_NAME + "}")
+	    		.log(LoggingLevel.INFO, LOGGER, buildStrLog("Vendedor encontrado no arquivo", "${headers." + Exchange.FILE_NAME + "}"))
 	    		.to(DIRECT_BIND_VENDEDOR)
 	        .when(isCliente)
-	        	.log(LoggingLevel.INFO, LOGGER, "Cliente encontrado no arquivo ${headers." + Exchange.FILE_NAME + "}")
+	        	.log(LoggingLevel.INFO, LOGGER, buildStrLog("Cliente encontrado no arquivo", "${headers." + Exchange.FILE_NAME + "}"))
 	        	.to(DIRECT_BIND_CLIENTE)
 	        .when(isVenda)
-		        .log(LoggingLevel.INFO, LOGGER, "Venda encontrada no arquivo ${headers." + Exchange.FILE_NAME + "}")
+		        .log(LoggingLevel.INFO, LOGGER, buildStrLog("Venda encontrada no arquivo ${headers." + Exchange.FILE_NAME + "}"))
 	    		.to(DIRECT_BIND_VENDA)
 		.end();
 		
 		from(DIRECT_CRIA_RESUMO_IMPORTACAO).routeId(DIRECT_CRIA_RESUMO_IMPORTACAO_ID)
-		.log(LoggingLevel.INFO, LOGGER, "Criando resumo da importação. ${headers." + Exchange.FILE_NAME + "}")
+		.log(LoggingLevel.INFO, LOGGER, buildStrLog("Criando resumo da importação do arquivo", "${headers." + Exchange.FILE_NAME + "}"))
 		.bean(resumoImportacao);
 		
 		configureBindy(DIRECT_BIND_VENDEDOR,
@@ -102,12 +100,15 @@ public class ImportacaoRoute extends RouteBuilder{
 		
 	}
 	
+	private String buildStrLog(Object... mensagens) {
+		return StringUtils.joinWith(" ", mensagens);
+	}
+	
 	private void configureBindy(String routeEndpoint, String routeId, @SuppressWarnings("rawtypes") Class clazz) {
 		
 		String msg_erro = "Erro!";
 		String[] msg_layout = { "Layout ou dados do arquivo", "inválidos! Processamento cancelado!" };
-		String msg_processoSuceso = StringUtils.joinWith(" ", "Dados do registro", clazz.getSimpleName(),
-		        "importados com sucesso");
+		String msg_processoSuceso = buildStrLog("Dados do registro", clazz.getSimpleName(), "importados com sucesso");
 		
 		from(routeEndpoint).routeId(routeId)
 	 	.doTry()
@@ -115,17 +116,9 @@ public class ImportacaoRoute extends RouteBuilder{
 	 		.log(LoggingLevel.INFO, LOGGER, msg_processoSuceso)
 	 	.endDoTry()
 	 	.doCatch(Exception.class)
-		        .log(LoggingLevel.ERROR, LOGGER, StringUtils.joinWith(" ",msg_erro, msg_layout[0],"${headers." + Exchange.FILE_NAME + "}",msg_layout[1]))
-		        .throwException(new CamelException(StringUtils.joinWith(" ",msg_erro, msg_layout[0],"${headers." + Exchange.FILE_NAME + "}",msg_layout[1])))
+		        .log(LoggingLevel.ERROR, LOGGER, buildStrLog(msg_erro, msg_layout[0], "${headers." + Exchange.FILE_NAME + "}", msg_layout[1]))
+		        .throwException(new CamelException(buildStrLog(msg_erro, msg_layout[0], "${headers." + Exchange.FILE_NAME + "}", msg_layout[1])))
 	 	.end();
     }
 
-//		.process(new Processor() {
-//			
-//			@Override
-//			public void process(Exchange exchange) throws Exception {
-//				log.info("Exchange----- "+exchange.getIn().getBody(String.class).toString());
-//				
-//			}
-//		})
 }
