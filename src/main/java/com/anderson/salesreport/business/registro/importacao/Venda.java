@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -20,6 +21,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @Builder
+@Getter
 @Component
 @CsvRecord(separator = "ç")
 public class Venda implements RegistroImportacao{
@@ -35,6 +37,10 @@ public class Venda implements RegistroImportacao{
     private List<Item> itens;
 	
 	@DataField(pos = 4, required = true, trim = true)
-    private Double salesmanName;
+    private String salesmanName;
+	
+	public Double totalVendas() {
+		return this.itens.stream().mapToDouble(x -> (x.getItemPrice() * x.getItemQuantity())).sum();
+	}
 
 }

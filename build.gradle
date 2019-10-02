@@ -25,7 +25,6 @@ dependencies {
     compile "org.apache.camel:camel-bindy:$camelVersion"
     compile "org.apache.camel:camel-spring:$camelVersion"
     compile "org.apache.camel:camel-spring-boot:$camelVersion"
-    compile "org.apache.camel:camel-file-starter:$camelVersion"
     compile "org.apache.camel:camel-spring-boot-starter:$camelVersion"
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 	compileOnly 'org.projectlombok:lombok'
