@@ -33,6 +33,6 @@ public class Cliente implements RegistroImportacao{
     private String name;
 	
 	@DataField(pos = 4, required = true, trim = true)
-    private Double businessArea;
+    private String businessArea;
 
 }

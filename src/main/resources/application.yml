@@ -7,7 +7,9 @@ camel:
     main-run-controller: true
     jmx-enabled: false
 
-#route:
-#  basePath: ./data
-#  from: file:${route.basePath}/in?autoCreate=true&delay=1000
-#  to: file:${route.basePath}/out?autoCreate=true
+route:
+  basePath: data
+  pathFrom: ${route.basePath}/in
+  pathTo: ${route.basePath}/out
+  from: file://${route.pathFrom}?autoCreate=true&delay=1000&moveFailed=../../${route.pathTo}/error
+  to: file://${route.pathTo}?autoCreate=true

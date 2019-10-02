@@ -3,6 +3,7 @@
 **.iml
 .metadata
 bin/
+data/
 tmp/
 logs/
 *.tmp
