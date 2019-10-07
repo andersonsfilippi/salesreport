@@ -2,7 +2,7 @@ package com.anderson.salesreport.business.service.bo;
 
 import org.springframework.stereotype.Component;
 
-import com.anderson.salesreport.business.registro.importacao.Vendedor;
+import com.anderson.salesreport.business.repository.dto.RankingVendaDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ import lombok.ToString;
 public class ResumoImportacao {
 	private Integer qtdClientes;
 	private Integer qtdVendedores;
-	private String idMaiorVenda;
-	private Vendedor piorVendedor;
+	private Integer idMaiorVenda;
+	private RankingVendaDTO piorVendedorRanking;
 	
 }

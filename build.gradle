@@ -1,11 +1,11 @@
 plugins {
-	id 'org.springframework.boot' version '2.1.8.RELEASE'
+	id 'org.springframework.boot' version '2.1.9.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
 }
 
 group = 'com.anderson'
-version = '1.0.0-RELEASE'
+version = '2.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 configurations {
@@ -19,6 +19,7 @@ repositories {
 }
 
 def camelVersion = "2.24.0"
+def springBootVersion = "2.1.8.RELEASE"
 
 dependencies {
     compile "org.apache.camel:camel-core:$camelVersion"
@@ -27,9 +28,13 @@ dependencies {
     compile "org.apache.camel:camel-spring:$camelVersion"
     compile "org.apache.camel:camel-spring-boot:$camelVersion"
     compile "org.apache.camel:camel-spring-boot-starter:$camelVersion"
-    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.1.8.RELEASE'
+    compile "de.flapdoodle.embed:de.flapdoodle.embed.mongo"
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.1.9.RELEASE'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testCompile "org.apache.camel:camel-test-spring:$camelVersion"
+	testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.2.0'
 }

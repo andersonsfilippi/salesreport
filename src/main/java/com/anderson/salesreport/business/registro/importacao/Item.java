@@ -9,13 +9,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-@EqualsAndHashCode
-@ToString
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
 @Component
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+@EqualsAndHashCode
+@Getter
 public class Item {
 	private Integer idItem;
 	private Integer itemQuantity;

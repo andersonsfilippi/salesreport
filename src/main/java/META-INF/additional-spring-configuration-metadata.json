@@ -6,7 +6,7 @@
 {
   "name": "route.basePath",
   "type": "java.lang.String",
-  "description": "Caminho base para todas as rotas"
+  "description": "Caminho base para todas as rotas."
 },
 {
   "name": "route.pathFrom",

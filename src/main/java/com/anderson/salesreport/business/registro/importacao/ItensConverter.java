@@ -20,10 +20,11 @@ public class ItensConverter implements Format<List<Item>> {
 	}
 
 	private List<Item> parseItens(String strItens) {
-		List<Item> itens = Pattern.compile(",").splitAsStream(StringUtils.replaceChars(strItens, "[]", "")).map(texto -> {
+		List<Item> itens = Pattern.compile(",").splitAsStream(StringUtils.replaceChars(strItens, "[]", ""))
+		        .map(texto -> {
 			        String[] dados = texto.split("-");
 			        return new Item(Integer.valueOf(dados[0]), Integer.valueOf(dados[1]), Double.valueOf(dados[2]));
-		}).collect(Collectors.toList());
+		        }).collect(Collectors.toList());
 		return itens;
 	}
 

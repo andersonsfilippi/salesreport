@@ -2,11 +2,16 @@ spring:
   banner:
     image:
       location: classpath:banner.txt
+  data:
+    mongodb:
+      port: 27981
+      database: vendasdb
+      
 camel:
   springboot:
     main-run-controller: true
     jmx-enabled: false
-
+    
 route:
   basePath: data
   pathFrom: ${route.basePath}/in
