@@ -4,6 +4,7 @@
 .metadata
 bin/
 data/
+dados/
 tmp/
 logs/
 *.tmp

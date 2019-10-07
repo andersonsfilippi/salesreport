@@ -17,6 +17,8 @@ import static com.anderson.salesreport.business.configuration.Routes.DIRECT_PARS
 import static com.anderson.salesreport.business.configuration.Routes.DIRECT_PARSE_CONTEUDO_ARQUIVO_ID;
 import static com.anderson.salesreport.business.configuration.Routes.DIRECT_PROCESSAR_CRITICAS;
 import static com.anderson.salesreport.business.configuration.Routes.DIRECT_PROCESSAR_CRITICAS_ID;
+import static com.anderson.salesreport.business.configuration.Routes.DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO;
+import static com.anderson.salesreport.business.configuration.Routes.DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO_ID;
 import static org.apache.camel.builder.PredicateBuilder.not;
 
 import org.apache.camel.CamelException;
@@ -76,9 +78,7 @@ public class ImportacaoRoute extends RouteBuilder{
 	@Override
 	public void configure() throws Exception {
 		
-		
-		
-		from("{{route.from}}").id("testeId")
+		from("{{route.from}}")
 		.log(LoggingLevel.INFO, LOGGER, buildStrLog("Convertendo dados do arquivo", "${headers." + Exchange.FILE_NAME + "}"))
 		.to(DIRECT_PARSE_BIND_CONTEUDO_ARQUIVO);
 		
@@ -91,7 +91,7 @@ public class ImportacaoRoute extends RouteBuilder{
 		    	.log(LoggingLevel.INFO, LOGGER, buildStrLog("Arquivo", file_name_camel, "lido com sucesso!"))
 		    	.pipeline(DIRECT_CRIA_RESUMO_IMPORTACAO, DIRECT_MARSHAL_RESUMO_IMPORTACAO)
 		    	.log(LoggingLevel.INFO, LOGGER, buildStrLog("Relatorio", file_name_camel, "gerado com sucesso",body().toString()))
-		    	.to("{{route.to}}")
+		    	.to(DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO)
 	    	.otherwise()
 		    	.log(LoggingLevel.INFO, LOGGER, buildStrLog("Processamento do arquivo", "${headers." + Exchange.FILE_NAME + "}", "cancelado!"))
 				.to(DIRECT_PROCESSAR_CRITICAS)
@@ -117,6 +117,9 @@ public class ImportacaoRoute extends RouteBuilder{
 		from(DIRECT_MARSHAL_RESUMO_IMPORTACAO).routeId(DIRECT_MARSHAL_RESUMO_IMPORTACAO_ID)
 		.marshal().json(JsonLibrary.Jackson)
 		.log(LoggingLevel.INFO, LOGGER, buildStrLog("Convertendo resumo para JSON para o arquivo", "${headers." + Exchange.FILE_NAME + "}"));
+		
+		from(DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO).routeId(DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO_ID)
+		.to("{{route.to}}");
 		
 		from(DIRECT_PROCESSAR_CRITICAS).routeId(DIRECT_PROCESSAR_CRITICAS_ID)
 		.log(LoggingLevel.INFO, LOGGER, buildStrLog("Críticas no arquivo", "${headers." + Exchange.FILE_NAME + "}:"))

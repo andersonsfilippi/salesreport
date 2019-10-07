@@ -10,6 +10,8 @@ import com.anderson.salesreport.business.registro.importacao.Cliente;
 import com.anderson.salesreport.business.registro.importacao.Item;
 import com.anderson.salesreport.business.registro.importacao.Venda;
 import com.anderson.salesreport.business.registro.importacao.Vendedor;
+import com.anderson.salesreport.business.repository.dto.RankingVendaDTO;
+import com.anderson.salesreport.business.service.bo.ResumoImportacao;
 
 public class ImportacaoUtils {
 
@@ -34,6 +36,17 @@ public class ImportacaoUtils {
 	private static final String ITENS_VENDA = "[1-10-100,2-30-2.50,3-40-3.10]";
 	private static final String VENDEDOR_VENDA = "Pedro";
 	private static final String TOTAL_VENDA = "1199";
+	
+	public static final ResumoImportacao resumo() {
+		return ResumoImportacao.builder()
+				.qtdClientes(1)
+				.qtdVendedores(1)
+				.idMaiorVenda(10)
+				.piorVendedorRanking(RankingVendaDTO.builder()
+						.salesmanName("Pedro")
+						.totalVendas(Double.valueOf("1199")).build()
+				).build();
+	}
 
 
 	public static Vendedor vendedor() {

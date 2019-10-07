@@ -23,6 +23,9 @@ public class Routes {
 	public static final String DIRECT_MARSHAL_RESUMO_IMPORTACAO_ID = "marshalResumoImportacaoId";
 	public static final String DIRECT_MARSHAL_RESUMO_IMPORTACAO = "direct:marshalResumoImportacao";
 	
+	public static final String DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO_ID = "salvarArquivoResumoImportacaoId";
+	public static final String DIRECT_SALVAR_ARQUIVO_RESUMO_IMPORTACAO = "direct:salvarArquivoResumoImportacao";
+	
 	public static final String DIRECT_PROCESSAR_CRITICAS_ID = "processarCriticasId";
 	public static final String DIRECT_PROCESSAR_CRITICAS = "direct:processarCriticas";
 	
