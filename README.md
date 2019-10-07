@@ -50,7 +50,7 @@ Os dados de venda possuem o identificador 003 e seguem o seguinte formato:
 003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çPaulo
 
 ===================================
-### Regras de negócio:
+### Regras de negócio que foram implementadas:
 
 -> O sistema somente importa dados que estejam no formato correto;
 
@@ -66,9 +66,9 @@ Os dados de venda possuem o identificador 003 e seguem o seguinte formato:
 
 Oracle Java JDK 8.x 64bits
 
-### Algumas tecnologias e frameworks utilizados: 
+### Principais tecnologias e frameworks utilizados: 
 
-Spring Boot, Apache Camel, MongoDB, Junit, Mockito.
+Java 8, Spring Boot, Apache Camel, MongoDB, Junit, Mockito.
 
 ### Execução a partir dos fontes:
 
