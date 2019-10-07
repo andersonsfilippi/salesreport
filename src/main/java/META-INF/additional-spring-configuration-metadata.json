@@ -1,0 +1,30 @@
+{"properties": [{
+  "name": "route",
+  "type": "java.lang.String",
+  "description": "Configuracoes das rotas de leitura,saida."
+},
+{
+  "name": "route.basePath",
+  "type": "java.lang.String",
+  "description": "Caminho base para todas as rotas."
+},
+{
+  "name": "route.pathFrom",
+  "type": "java.lang.String",
+  "description": "Caminho de leitura dos arquivos de vendas."
+},
+{
+  "name": "route.pathTo",
+  "type": "java.lang.String",
+  "description": "Caminho de geracao do relatorio de vendas do arquivo que foi processado."
+},
+{
+  "name": "route.from",
+  "type": "java.lang.String",
+  "description": "Definicao do componente camel-file que sera utilizado para a leitura dos arquivos a cada 1 segundo.<br>Havendo erros, o sistema move o arquivo para a pasta de erros."
+},
+{
+  "name": "route.to",
+  "type": "java.lang.String",
+  "description": "Definicao do componente camel-file que sera utilizado para a criacao do relatorio."
+}]}
