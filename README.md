@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/andersonsfilippi/salesreport.svg?branch=master)](https://travis-ci.org/andersonsfilippi/salesreport)
+
 # salesreport
 SalesReport
 
