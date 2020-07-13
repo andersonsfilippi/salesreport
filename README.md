@@ -83,6 +83,18 @@ cd build/libs/
 
 java -jar salesreport-2.0.0-SNAPSHOT.jar
 ```
+
+-> Colocar o arquivo a ser lido em:
+
+```
+./data/in
+```
+
+-> Relatório com resultados em:
+
+```
+./data/out
+```
 ### Execução a partir build:
 
 https://github.com/andersonsfilippi/salesreport/releases/tag/2.0.0-SNAPSHOT
