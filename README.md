@@ -98,3 +98,11 @@ java -jar salesreport-2.0.0-SNAPSHOT.jar
 ### Execução a partir build:
 
 https://github.com/andersonsfilippi/salesreport/releases/tag/2.0.0-SNAPSHOT
+
+
+
+Resultado do consumo dos dados de exemplo:
+
+```
+{"qtdClientes":2,"qtdVendedores":2,"idMaiorVenda":10,"piorVendedorRanking":{"salesmanName":"Paulo","totalVendas":393.5}}
+```
